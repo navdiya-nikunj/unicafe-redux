@@ -1,7 +1,12 @@
 import { useSelector, useDispatch } from 'react-redux';
 
 const App = () => {
-	const anecdotes = useSelector((state) => state);
+	const anecdotes = useSelector((state) =>
+		state.sort((a, b) => {
+			if (a.votes > b.votes) return -1;
+			else return 1;
+		})
+	);
 	const dispatch = useDispatch();
 
 	const vote = (id) => {
