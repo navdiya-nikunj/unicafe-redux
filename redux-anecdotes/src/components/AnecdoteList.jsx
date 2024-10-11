@@ -3,12 +3,22 @@ import { vote } from '../reducers/Actions';
 
 const AnecdoteList = () => {
 	const dispatch = useDispatch();
-	const anecdotes = useSelector((state) =>
-		state.sort((a, b) => {
-			if (a.votes > b.votes) return -1;
-			else return 1;
-		})
-	);
+	const anecdotes = useSelector((state) => {
+		// console.log(state);
+		if (state.filter === '') {
+			return state.anecdotes.sort((a, b) => {
+				if (a.votes > b.votes) return -1;
+				else return 1;
+			});
+		} else {
+			return state.anecdotes
+				.filter((anecdote) => anecdote.content.includes(state.filter))
+				.sort((a, b) => {
+					if (a.votes > b.votes) return -1;
+					else return 1;
+				});
+		}
+	});
 
 	return anecdotes.map((anecdote) => (
 		<div key={anecdote.id}>

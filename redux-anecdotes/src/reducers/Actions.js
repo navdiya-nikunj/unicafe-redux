@@ -19,4 +19,11 @@ const addAnecdoteAction = (content) => {
         }
     }
 }
-export { vote, addAnecdoteAction }
+
+const setFilter = (filter) => {
+    return {
+        type: 'FILTER',
+        payload: filter
+    }
+}
+export { vote, addAnecdoteAction, setFilter }
