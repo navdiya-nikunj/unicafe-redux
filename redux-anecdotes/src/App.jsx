@@ -12,6 +12,19 @@ const App = () => {
 			},
 		});
 	};
+	const getId = () => (100000 * Math.random()).toFixed(0);
+	const addAnecdote = (e) => {
+		e.preventDefault();
+		const content = e.target.text.value;
+		dispatch({
+			type: 'ADD_ANECDOTE',
+			payload: {
+				content,
+				id: getId(),
+				votes: 0,
+			},
+		});
+	};
 
 	return (
 		<div>
@@ -26,9 +39,9 @@ const App = () => {
 				</div>
 			))}
 			<h2>create new</h2>
-			<form>
+			<form onSubmit={addAnecdote}>
 				<div>
-					<input />
+					<input name='text' />
 				</div>
 				<button>create</button>
 			</form>

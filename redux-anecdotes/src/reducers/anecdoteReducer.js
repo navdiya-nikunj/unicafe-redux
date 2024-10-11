@@ -30,6 +30,8 @@ const reducer = (state = initialState, action) => {
         }
         return anecdote
       })
+    case 'ADD_ANECDOTE':
+      return [...state, action.payload];
     default:
       break;
   }
