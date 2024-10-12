@@ -35,5 +35,8 @@ export const useNotification = () => {
 
 export const useNotificationDispatch = () => {
 	const notificationAndDispatch = useContext(NotificationContext);
+	setInterval(() => {
+		notificationAndDispatch[1]({ type: 'REMOVE' });
+	}, 10000);
 	return notificationAndDispatch[1];
 };

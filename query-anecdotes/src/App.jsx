@@ -17,10 +17,6 @@ const App = () => {
 	const handleVote = (anecdote) => {
 		voteMutation.mutate({ ...anecdote, votes: anecdote.votes + 1 });
 		dispatch({ type: 'SET', payload: `You voted '${anecdote.content}'` });
-		setInterval(() => {
-			dispatch({ type: 'REMOVE' });
-		}, 5000);
-		console.log('vote');
 	};
 
 	const result = useQuery({

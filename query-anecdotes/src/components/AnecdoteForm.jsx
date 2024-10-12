@@ -10,6 +10,12 @@ const AnecdoteForm = () => {
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ['anecdotes'] });
 		},
+		onError: () => {
+			dispatch({
+				type: 'SET',
+				payload: 'Too short anecdote, at least length of 5',
+			});
+		},
 	});
 
 	const onCreate = (event) => {
@@ -19,9 +25,6 @@ const AnecdoteForm = () => {
 		console.log('new anecdote');
 		createAnecdoteMutation.mutate({ content, votes: 0 });
 		dispatch({ type: 'SET', payload: `you added '${content}'` });
-		setInterval(() => {
-			dispatch({ type: 'REMOVE' });
-		}, 5000);
 	};
 
 	return (
