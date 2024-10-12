@@ -7,7 +7,11 @@ const getAnecdotes = async () => {
 }
 
 const createAnecdotes = async (newAnecdote) => {
-    const res = await axios.post('http://localhost:3001/anecdotes', newAnecdote)
+    return (await axios.post('http://localhost:3001/anecdotes', newAnecdote)).data;
 }
 
-export { getAnecdotes, createAnecdotes };
+const voteAnecdotes = async (updatedAnecdote) => {
+    return (await axios.put(`http://localhost:3001/anecdotes/${updatedAnecdote.id}`, updatedAnecdote));
+}
+
+export { getAnecdotes, createAnecdotes, voteAnecdotes };
