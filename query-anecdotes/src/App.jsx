@@ -3,9 +3,11 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import AnecdoteForm from './components/AnecdoteForm';
 import Notification from './components/Notification';
 import { getAnecdotes, voteAnecdotes } from './services/anecdotes';
+import { useNotificationDispatch } from './CounterContext';
 
 const App = () => {
 	const queryClient = useQueryClient();
+	const dispatch = useNotificationDispatch();
 	const voteMutation = useMutation({
 		mutationFn: voteAnecdotes,
 		onSuccess: () => {
@@ -14,6 +16,10 @@ const App = () => {
 	});
 	const handleVote = (anecdote) => {
 		voteMutation.mutate({ ...anecdote, votes: anecdote.votes + 1 });
+		dispatch({ type: 'SET', payload: `You voted '${anecdote.content}'` });
+		setInterval(() => {
+			dispatch({ type: 'REMOVE' });
+		}, 5000);
 		console.log('vote');
 	};
 
