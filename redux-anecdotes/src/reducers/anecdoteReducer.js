@@ -49,3 +49,14 @@ export const createAnecdoteFn = (content) => {
     }, 5000);
   }
 }
+
+export const voteAnecdoteFn = (id) => {
+  return async dispatch => {
+    const res = await notes.voteAnecdote(id);
+    dispatch(voteAnecdote(id));
+    dispatch(setNotification(`You voted '${res.content}'`));
+    setInterval(() => {
+      dispatch(removeNotification());
+    }, 5000);
+  }
+}
