@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit"
 import notes from "../services/notes"
-import { removeNotification, setNotification } from "./notificationReducer"
+import { setNotificationFn } from "./notificationReducer"
 
 
 const initialState = []
@@ -43,10 +43,7 @@ export const createAnecdoteFn = (content) => {
     const newAnecdote = await notes.createAnecdote(content);
     console.log("new an", newAnecdote);
     dispatch(addAnecdote(newAnecdote));
-    dispatch(setNotification(`You added ${content}`));
-    setInterval(() => {
-      dispatch(removeNotification());
-    }, 5000);
+    dispatch(setNotificationFn(`You added ${content}`, 5))
   }
 }
 
@@ -54,9 +51,6 @@ export const voteAnecdoteFn = (id) => {
   return async dispatch => {
     const res = await notes.voteAnecdote(id);
     dispatch(voteAnecdote(id));
-    dispatch(setNotification(`You voted '${res.content}'`));
-    setInterval(() => {
-      dispatch(removeNotification());
-    }, 5000);
+    dispatch(setNotificationFn(`You voted '${res.content}'`, 5));
   }
 }
