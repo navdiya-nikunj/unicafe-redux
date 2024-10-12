@@ -4,16 +4,20 @@ import {
 	removeNotification,
 	setNotification,
 } from '../reducers/notificationReducer';
+import notes from '../services/notes';
 const AnecDoteForm = () => {
 	const dispatch = useDispatch();
 	const handleAddAnecdote = (e) => {
 		e.preventDefault();
 		const content = e.target.text.value;
-		dispatch(addAnecdote(content));
-		dispatch(setNotification(`You added ${content}`));
-		setInterval(() => {
-			dispatch(removeNotification());
-		}, 5000);
+		e.target.text.value = '';
+		notes.createAnecdote(content).then((res) => {
+			dispatch(addAnecdote(res));
+			dispatch(setNotification(`You added ${content}`));
+			setInterval(() => {
+				dispatch(removeNotification());
+			}, 5000);
+		});
 	};
 
 	return (
