@@ -6,4 +6,8 @@ const getAnecdotes = async () => {
     return res.data;
 }
 
-export { getAnecdotes };
+const createAnecdotes = async (newAnecdote) => {
+    const res = await axios.post('http://localhost:3001/anecdotes', newAnecdote)
+}
+
+export { getAnecdotes, createAnecdotes };
